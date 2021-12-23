@@ -26,5 +26,9 @@ EndOfMessage
             sudo apt install "$pkg" -y && echo "Successfully installed $pkg"
         fi
     done
-
+        if [ ! -d "${HOME}/steamcmd" ]; then
+            mkdir ~/steamcmd && cd ~/steamcmd
+            curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+        fi
+        cd "${HOME}"
 )

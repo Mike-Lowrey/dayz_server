@@ -7,7 +7,7 @@
 #############################################
 
 version=23
-appid=1042420
+appid=223350
 dayz_id=221100
 #stable=223350
 #exp_branch=1042420
@@ -216,7 +216,7 @@ fn_install_dayz(){
 }
 
 fn_runupdate_dayz(){
-	${HOME}/steamcmd/steamcmd.sh +force_install_dir ${HOME}/serverfiles +login "${steamlogin}"  +app_update "${appid}" +quit
+	${HOME}/steamcmd/steamcmd.sh +force_install_dir ${HOME}/serverfiles '+login' $STEAMUSERNAME $STEAMPASSWORD +app_update "${appid}" +quit
 }
 
 fn_update_dayz(){
@@ -231,7 +231,7 @@ fn_update_dayz(){
 		sleep 1
 	fi
 	# check for new build
-	availablebuild=$(${HOME}/steamcmd/steamcmd.sh +login "${steamlogin}" +app_info_update 1 +app_info_print "${appid}" +app_info_print "${appid}" +quit | sed -n '/branch/,$p' | grep -m 1 buildid | tr -cd '[:digit:]')
+	availablebuild=$(${HOME}/steamcmd/steamcmd.sh '+login' $STEAMUSERNAME $STEAMPASSWORD +app_info_update 1 +app_info_print "${appid}" +app_info_print "${appid}" +quit | sed -n '/branch/,$p' | grep -m 1 buildid | tr -cd '[:digit:]')
 	if [ -z "${availablebuild}" ]; then
 		printf "\r[ ${red}FAIL${default} ] Checking for update: SteamCMD\n"
 		sleep 0.5
@@ -280,7 +280,7 @@ fn_update_dayz(){
 }
 
 fn_runvalidate_dayz(){
-	${HOME}/steamcmd/steamcmd.sh +force_install_dir ${HOME}/serverfiles +login "${steamlogin}" +app_update "${appid}" validate +quit
+	${HOME}/steamcmd/steamcmd.sh +force_install_dir ${HOME}/serverfiles '+login' $STEAMUSERNAME $STEAMPASSWORD +app_update "${appid}" validate +quit
 }
 
 fn_validate_dayz(){
@@ -315,7 +315,7 @@ fn_workshop_mods(){
 		fi
 	done
 	# download mods
-	${HOME}/steamcmd/steamcmd.sh +force_install_dir ${HOME}/serverfiles +login "${steamlogin}" ${workshoplist} +quit
+	${HOME}/steamcmd/steamcmd.sh +force_install_dir ${HOME}/serverfiles '+login' $STEAMUSERNAME $STEAMPASSWORD ${workshoplist} +quit
 	# link mods
 	for i in "${workshopID[@]}"
 	do
